@@ -146,8 +146,8 @@ class App:
         self._display_surf.fill((100,100,100))
         textsurface = self.myfont.render('Score: ', False, (250, 250, 250))
         score = self.myfont.render(str(self.length-1), False, (250, 250, 250))
-        self._display_surf.blit(textsurface,(0, 620))
-        self._display_surf.blit(score,(75, 620))
+        self._display_surf.blit(textsurface,(0, 600))
+        self._display_surf.blit(score,(120, 600))
 
         #render grid
         for y in range(30):

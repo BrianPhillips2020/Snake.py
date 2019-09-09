@@ -81,8 +81,8 @@ class App:
                     new = [self.player.body[0][0] + self.player.speed, self.player.body[0][1]]
                         
                     #player self collission    
-                    #if ( new in self.player.body):
-                        #self._running = False
+                    if (new in self.player.body):
+                        self._running = False
                         
                     #removing tail once new head is added
                     self.player.body.insert(0, new)
@@ -178,86 +178,113 @@ class App:
 
             self.clock += 1
             self.update_player_pos()
+        
+            moved = False
  
-            if(self.player.body[0][0] < self.apple.x):
+            if(self.player.body[0][0] < self.apple.x) and moved == False: 
                 if self.player.direction == "left":
-                    if self.player.body[0][1] == 0:
+                    if self.player.body[0][1] != 0:
                         self.player.moveDown()
-                    elif self.player.body[0][1] == 580:
+                        moved = True
+                    elif self.player.body[0][1] != 580:
                         self.player.moveUp()
+                        moved = True
+                       
                     elif self.length > 2:
                         if self.player.body[0][0] + self.player.speed != self.player.body[1][0]:
                             self.player.moveRight()
+                            moved = True
                 else:
                     if ([self.player.body[0][0] + self.player.speed, self.player.body[0][1]] in self.player.body):
                         if ([self.player.body[0][0], self.player.body[0][1] + self.player.speed] in self.player.body):
                             self.player.moveUp()
+                            moved = True
                             print("right up")
                         else:    
                             print("right down")
                             self.player.moveDown()
+                            moved = True
                     else:
                         self.player.moveRight()
+                        moved = True
             
-            if(self.player.body[0][0] > self.apple.x):
+            if(self.player.body[0][0] > self.apple.x) and moved == False:
                 if self.player.direction == "right":
-                    if self.player.body[0][1] == 0:
+                    if self.player.body[0][1] >= 0 and self.player.body[0][1] < 580:
                         self.player.moveDown()
+                        moved = True
                     elif self.player.body[0][1] == 580:
                         self.player.moveUp()
+                        moved = True
                     elif self.length > 2:
                         if self.player.body[0][0] - self.player.speed != self.player.body[1][0]:
                             self.player.moveLeft()
+                            moved = True
                 else:
                     if ([self.player.body[0][0] - self.player.speed, self.player.body[0][1]] in self.player.body):
                         if ([self.player.body[0][0], self.player.body[0][1] + self.player.speed] in self.player.body):
                             self.player.moveUp()
                             print("left up")
+                            moved = True
                         else:    
                             print("left down")
                             self.player.moveDown()
+                            moved = True
                     else:
                         self.player.moveLeft()
+                        moved = True
 
-            if(self.player.body[0][1] < self.apple.y):
+            if(self.player.body[0][1] < self.apple.y) and moved == False:
                 if self.player.direction == "up": 
                     if self.player.body[0][0] == 0:                          
                         self.player.moveRight()
+                        moved = True
                     elif self.player.body[0][0] == 780:
                         self.player.left()
+                        moved = True
                     elif self.length > 2:
                         if self.player.body[0][1] + self.player.speed != self.player.body[1][1]:
                             self.player.moveDown()
+                            moved = True
                 else: 
                     if ([self.player.body[0][0], self.player.body[0][1] + self.player.speed] in self.player.body):
                         if ([self.player.body[0][0] + self.player.speed, self.player.body[0][1]] in self.player.body):
                             self.player.moveLeft()
                             print("up left")
+                            moved = True
                         else:    
                             self.player.moveRight()
                             print("up right")
+                            moved = True
                     else:
                         self.player.moveDown()
+                        moved = True
             
-            if(self.player.body[0][1] > self.apple.y):
+            if(self.player.body[0][1] > self.apple.y) and moved == False:
                 if self.player.direction == "down":
                     if self.player.body[0][0] == 0:  
                         self.player.moveRight()
+                        moved = True
                     elif self.player.body[0][0] == 780:
-                        self.player.left()
+                        self.player.moveLeft()
+                        moved = True
                     elif self.length > 2:
                         if self.player.body[0][1] - self.player.speed != self.player.body[1][1]:
                             self.player.moveUp()
+                            moved = True
                 else:
                     if ([self.player.body[0][0], self.player.body[0][1] - self.player.speed] in self.player.body):
                         if ([self.player.body[0][0] + self.player.speed, self.player.body[0][1]] in self.player.body):
                             self.player.moveLeft()
                             print("down left")
+                            moved = True
                         else:
                             self.player.moveRight()
                             print("down right")
+                            moved = True
                     else:
                         self.player.moveUp()
+                        moved = True
 
             #([self.player.body[0][0] + self.player.speed, self.player.body[0][1]] in self.player.body)
             #([self.player.body[0][0] - self.player.speed, self.player.body[0][1]] in self.player.body)
